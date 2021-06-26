@@ -12,6 +12,7 @@ class Player{
   Color commanderDamageColor, poisonDamageColor;
   String tooltipVisibility;
   int tooltip;
+  bool timerIsRunning;
 
   Player({ required this.health,
     required this.commanderDamage,
@@ -23,6 +24,7 @@ class Player{
     required this.poisonDamageColor,
     required this.show,
     required this.tooltipVisibility,
+    required this.timerIsRunning,
     required this.tooltip
   });
 

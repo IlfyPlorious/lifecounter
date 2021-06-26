@@ -31,7 +31,7 @@ class _PlayerBarState extends State<PlayerBar> {
                   });
                 },
                 icon: Image(
-                  image: AssetImage('icons/lifereset.png'),
+                  image: AssetImage('./lib/assets/icons/lifereset.png'),
                 ),
                 iconSize: 50,
               ),
@@ -41,7 +41,7 @@ class _PlayerBarState extends State<PlayerBar> {
                   widget.notifyParent(widget.player.health, widget.player.healthColor, widget.player.backgroundColor, 'stats');
                 },
                 icon: Image(
-                  image: AssetImage('icons/statsbar48.png'),
+                  image: AssetImage('./lib/assets/icons/statsbar48.png'),
                 ),
                 iconSize: 50,
               ),
@@ -52,7 +52,7 @@ class _PlayerBarState extends State<PlayerBar> {
                   });
                 },
                 icon: Image(
-                  image: AssetImage('icons/color64.png'),
+                  image: AssetImage('./lib/assets/icons/color64.png'),
                 ),
                 iconSize: 50,
               ),
@@ -60,36 +60,46 @@ class _PlayerBarState extends State<PlayerBar> {
       );
     else return Row(
         children: [
-          IconButton(onPressed: (){
-            widget.notifyParent(widget.player.health, widget.player.healthColor, Colors.red, widget.player.show);
-            setState(() {
-              widget.mode = 'default';
-            });
-          }, icon: Image(image: AssetImage('icons/fire48.png'),), iconSize: 50,),
-          IconButton(onPressed: (){
-            widget.notifyParent(widget.player.health, widget.player.healthColor, Colors.blue, widget.player.show);
-            setState(() {
-              widget.mode = 'default';
-            });
-          }, icon: Image(image: AssetImage('icons/water48.png'),), iconSize: 50,),
-          IconButton(onPressed: (){
-            widget.notifyParent(widget.player.health, widget.player.healthColor, Colors.green.shade700, widget.player.show );
-            setState(() {
-              widget.mode = 'default';
-            });
-          }, icon: Image(image: AssetImage('icons/forest48.png'),), iconSize: 50,),
-          IconButton(onPressed: (){
-            widget.notifyParent(widget.player.health, widget.player.healthColor, Color.fromRGBO(252, 243, 207, 1), widget.player.show);
-            setState(() {
-              widget.mode = 'default';
-            });
-          }, icon: Image(image: AssetImage('icons/sun48.png'),), iconSize: 50,),
-          IconButton(onPressed: (){
-            widget.notifyParent(widget.player.health, widget.player.healthColor, Colors.grey.shade900, widget.player.show);
-            setState(() {
-              widget.mode = 'default';
-            });
-          }, icon: Image(image: AssetImage('icons/swamp48.png'),), iconSize: 50,),
+          Expanded(
+            child: IconButton(onPressed: (){
+              widget.notifyParent(widget.player.health, widget.player.healthColor, Colors.red, widget.player.show);
+              setState(() {
+                widget.mode = 'default';
+              });
+            }, icon: Image(image: AssetImage('./lib/assets/icons/fire48.png'),), iconSize: 50,),
+          ),
+          Expanded(
+            child: IconButton(onPressed: (){
+              widget.notifyParent(widget.player.health, widget.player.healthColor, Colors.blue, widget.player.show);
+              setState(() {
+                widget.mode = 'default';
+              });
+            }, icon: Image(image: AssetImage('./lib/assets/icons/water48.png'),), iconSize: 50,),
+          ),
+          Expanded(
+            child: IconButton(onPressed: (){
+              widget.notifyParent(widget.player.health, widget.player.healthColor, Colors.green.shade700, widget.player.show );
+              setState(() {
+                widget.mode = 'default';
+              });
+            }, icon: Image(image: AssetImage('./lib/assets/icons/forest48.png'),), iconSize: 50,),
+          ),
+          Expanded(
+            child: IconButton(onPressed: (){
+              widget.notifyParent(widget.player.health, widget.player.healthColor, Color.fromRGBO(252, 243, 207, 1), widget.player.show);
+              setState(() {
+                widget.mode = 'default';
+              });
+            }, icon: Image(image: AssetImage('./lib/assets/icons/sun48.png'),), iconSize: 50,),
+          ),
+          Expanded(
+            child: IconButton(onPressed: (){
+              widget.notifyParent(widget.player.health, widget.player.healthColor, Colors.grey.shade900, widget.player.show);
+              setState(() {
+                widget.mode = 'default';
+              });
+            }, icon: Image(image: AssetImage('./lib/assets/icons/swamp48.png'),), iconSize: 50,),
+          ),
         ],
 
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

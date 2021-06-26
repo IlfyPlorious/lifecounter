@@ -19,41 +19,42 @@ class _StatsLayoutState extends State<StatsLayout> {
     return Container(
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: IconButton(onPressed: (){
-                  widget.player.show = 'player';
-                  widget.notifyParent( commanderDamage: widget.player.commanderDamage, poisonDamage: widget.player.poisonDamage, show: widget.player.show );
-                }, icon: Image( image: AssetImage('icons/back48white.png'),),
-                iconSize: 40,
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: IconButton(onPressed: (){
+                    widget.player.show = 'player';
+                    widget.notifyParent( commanderDamage: widget.player.commanderDamage, poisonDamage: widget.player.poisonDamage, show: widget.player.show );
+                  }, icon: Image( image: AssetImage('./lib/assets/icons/back48white.png'),),
+                  iconSize: 20,
+                  ),
                 ),
-              ),
-              Padding(padding: const EdgeInsets.all(12.0),
-              child: IconButton(onPressed: (){
-                setState(() {
-                  widget.player.commanderDamage = 0;
-                  widget.player.poisonDamage = 0;
-                  widget.notifyParent( commanderDamage: widget.player.commanderDamage, poisonDamage: widget.player.poisonDamage, show: widget.player.show );
-                });
-              },
-                icon: Image(image: AssetImage('icons/liferesetwhite.png'),),
-                iconSize: 40,
-              ),
-              )
-            ],
+                Padding(padding: const EdgeInsets.all(12.0),
+                child: IconButton(onPressed: (){
+                  setState(() {
+                    widget.player.commanderDamage = 0;
+                    widget.player.poisonDamage = 0;
+                    widget.notifyParent( commanderDamage: widget.player.commanderDamage, poisonDamage: widget.player.poisonDamage, show: widget.player.show );
+                  });
+                },
+                  icon: Image(image: AssetImage('./lib/assets/icons/liferesetwhite.png'),),
+                  iconSize: 20,
+                ),
+                )
+              ],
+            ),
+            flex: 3,
           ),
           Expanded(child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(
-                child: Text('Commander Damage',
-                  style: TextStyle(
-                      fontSize: 40,
-                      color: Colors.amber
-                  ),
+              Text('Commander Damage',
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.amber
                 ),
               )
             ],
@@ -74,12 +75,13 @@ class _StatsLayoutState extends State<StatsLayout> {
                       else widget.player.commanderDamageColor = Colors.white;
                     });
                     widget.notifyParent(commanderDamage: widget.player.commanderDamage, poisonDamage: widget.player.poisonDamage, show: widget.player.show);
-                  }, icon: Image(image: AssetImage('icons/orangeminus32.png'),)),
+                  }, icon: Image(image: AssetImage('./lib/assets/icons/orangeminus32.png'),),
+                  ),
                 ),
                 Center(
                   child: Text(widget.player.commanderDamage.toString(),
                   style: TextStyle(
-                    fontSize: 60,
+                    fontSize: 30,
                     color: widget.player.commanderDamageColor
                   ),),
                 ), 
@@ -92,7 +94,7 @@ class _StatsLayoutState extends State<StatsLayout> {
                       else widget.player.commanderDamageColor = Colors.white;
                     });
                     widget.notifyParent(commanderDamage: widget.player.commanderDamage, poisonDamage: widget.player.poisonDamage, show: widget.player.show);
-                  }, icon: Image(image: AssetImage('icons/greenplus32.png'),)),
+                  }, icon: Image(image: AssetImage('./lib/assets/icons/greenplus32.png'),)),
                 )
               ],
             ),
@@ -104,7 +106,7 @@ class _StatsLayoutState extends State<StatsLayout> {
               Center(
                 child: Text('Poison Damage',
                   style: TextStyle(
-                    fontSize: 40,
+                    fontSize: 20,
                     color: Colors.green
                   ),
                 ),
@@ -126,14 +128,14 @@ class _StatsLayoutState extends State<StatsLayout> {
                     else widget.player.poisonDamageColor = Colors.white;
                   });
                   widget.notifyParent(commanderDamage: widget.player.commanderDamage, poisonDamage: widget.player.poisonDamage, show: widget.player.show);
-                }, icon: Image(image: AssetImage('icons/orangeminus32.png'),))),
+                }, icon: Image(image: AssetImage('./lib/assets/icons/orangeminus32.png'),))),
                 Center(
                   child: Text(widget.player.poisonDamage.toString(),
                     style: TextStyle(
-                        fontSize: 60,
+                        fontSize: 30,
                         color: widget.player.poisonDamageColor
                     ),),
-                ), 
+                ),
                 Expanded(child: IconButton(onPressed: (){
                   setState(() {
                     widget.player.poisonDamage += 1;
@@ -142,7 +144,7 @@ class _StatsLayoutState extends State<StatsLayout> {
                     else widget.player.poisonDamageColor = Colors.white;
                   });
                   widget.notifyParent(commanderDamage: widget.player.commanderDamage, poisonDamage: widget.player.poisonDamage, show: widget.player.show);
-                }, icon: Image(image: AssetImage('icons/greenplus32.png'),)))
+                }, icon: Image(image: AssetImage('./lib/assets/icons/greenplus32.png'),)))
               ],
             ),
             flex: 3,

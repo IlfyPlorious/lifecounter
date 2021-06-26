@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({Key? key}) : super(key: key);
@@ -8,6 +9,13 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
+
+  @override
+  void initState() {
+    super.initState();
+    Future () => SystemChrome.setEnabledSystemUIOverlays([]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +69,29 @@ class _MainMenuState extends State<MainMenu> {
                   ))
                 ],
               ),
+              SizedBox(height: 10,),
+              Row(
+                children: [
+                  Expanded(child: TextButton(
+                    onPressed: (){
+                      Navigator.pushNamed(context, '/instructions');
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        'instructions',
+                        style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 20
+                        ),
+                      ),
+                    ),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.amber,
+                    ),
+                  ))
+                ],
+              )
             ],
             mainAxisAlignment: MainAxisAlignment.center,
           ),
@@ -69,4 +100,6 @@ class _MainMenuState extends State<MainMenu> {
       backgroundColor: Colors.grey[800],
     );
   }
+
+
 }

@@ -16,6 +16,18 @@ class PlayerLayout extends StatefulWidget {
 }
 
 class _PlayerLayoutState extends State<PlayerLayout> {
+
+  Timer _timer = new Timer(Duration(seconds: 0), (){});
+
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    widget.player.tooltipVisibility = 'invisible';
+    widget.player.tooltip = 0;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,24 +51,52 @@ class _PlayerLayoutState extends State<PlayerLayout> {
                       widget.player.health -= 1;
                       if ( widget.player.health < 1 ) widget.player.healthColor = Colors.deepOrange.shade900;
                       else widget.player.healthColor = Colors.white;
+
+                      if ( widget.player.tooltipVisibility == 'invisible') {
+                        widget.player.tooltip -= 1;
+                        setTooltipVisible();
+                        if (_timer != null ){
+                          _timer.cancel();
+                          _timer = new Timer(Duration(seconds: 2), setTooltipInvisible);
+                        }
+                      } else {
+                        if (_timer != null ){
+                          _timer.cancel();
+                          _timer = new Timer(Duration(seconds: 2), setTooltipInvisible);
+                        }
+                        widget.player.tooltip -= 1;
+                      }
+
                     });
+
+
+
                   },
                       icon: Image(
-                        image: AssetImage('icons/orangeminus32.png'),
+                        image: AssetImage('./lib/assets/icons/orangeminus32.png'),
                       )
                   ),
                 ),
-                Center(child: Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    AnimatedOpacity(
                       child: Text((widget.player.tooltip > -1 ) ? '+' + widget.player.tooltip.toString() : widget.player.tooltip.toString(),
                         style: TextStyle(
                             fontSize: 20,
-                            color: Colors.white
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 5
+                              )
+                            ],
                         ),
                       ),
+                      opacity: ( widget.player.tooltipVisibility == 'visible') ? 1 : 0,
+                      duration: ( widget.player.tooltipVisibility == 'visible') ? Duration(milliseconds: 1) : Duration(milliseconds: 500),
+                      onEnd: (){
+                        if ( widget.player.tooltipVisibility == 'invisible' ) widget.player.tooltip = 0;
+                      },
                     ),
                     Text(widget.player.health.toString(),
                       style: TextStyle(
@@ -69,7 +109,7 @@ class _PlayerLayoutState extends State<PlayerLayout> {
                           ]
                       ),),
                   ],
-                )),
+                ),
                 Expanded(
                   child: IconButton(onPressed: (){
                     setState(() {
@@ -77,8 +117,23 @@ class _PlayerLayoutState extends State<PlayerLayout> {
                       if ( widget.player.health < 1 ) widget.player.healthColor = Colors.deepOrange.shade900;
                       else widget.player.healthColor = Colors.white;
                     });
+
+                    if ( widget.player.tooltipVisibility == 'invisible') {
+                      setTooltipVisible();
+                      if (_timer != null ){
+                        _timer.cancel();
+                        _timer = new Timer(Duration(seconds: 2), setTooltipInvisible);
+                      }
+                      widget.player.tooltip += 1;
+                    } else {
+                      if (_timer != null ){
+                        _timer.cancel();
+                        _timer = new Timer(Duration(seconds: 2), setTooltipInvisible);
+                      }
+                      widget.player.tooltip += 1;
+                    }
                   },
-                      icon: Image( image: AssetImage('icons/greenplus32.png'), )
+                      icon: Image( image: AssetImage('./lib/assets/icons/greenplus32.png'), ),
                   ),
                 )
               ],
@@ -90,8 +145,16 @@ class _PlayerLayoutState extends State<PlayerLayout> {
     );
   }
 
-  void healthTooltipTimer() async{
-    //Timer()
+  void setTooltipInvisible(){
+     setState(() {
+       widget.player.tooltipVisibility = 'invisible';
+     });
+  }
+
+  void setTooltipVisible(){
+      setState(() {
+        widget.player.tooltipVisibility = 'visible';
+      });
   }
 
 }
