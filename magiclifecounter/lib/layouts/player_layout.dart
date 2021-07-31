@@ -32,7 +32,7 @@ class _PlayerLayoutState extends State<PlayerLayout> {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
             Expanded(child: PlayerBar(
@@ -68,9 +68,6 @@ class _PlayerLayoutState extends State<PlayerLayout> {
                       }
 
                     });
-
-
-
                   },
                       icon: Image(
                         image: AssetImage('./lib/assets/icons/orangeminus32.png'),
@@ -100,7 +97,7 @@ class _PlayerLayoutState extends State<PlayerLayout> {
                     ),
                     Text(widget.player.health.toString(),
                       style: TextStyle(
-                          fontSize: 70,
+                          fontSize: 50,
                           color: widget.player.healthColor,
                           shadows: <Shadow> [
                             Shadow(
@@ -138,6 +135,23 @@ class _PlayerLayoutState extends State<PlayerLayout> {
                 )
               ],
             ), flex: 3,),
+
+            Expanded(child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text( widget.player.username,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    shadows: <Shadow> [
+                      Shadow(
+                          blurRadius: 5
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ))
           ],
         ),
       ),

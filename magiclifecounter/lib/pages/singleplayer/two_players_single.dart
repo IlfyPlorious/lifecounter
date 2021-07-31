@@ -16,10 +16,10 @@ class _TwoPlayersState extends State<TwoPlayers> {
 
   Player player1 = Player(
       health: 40,
-      username: '',
+      username: 'player1',
       backgroundColor: Colors.green.shade700,
       healthColor: Colors.white,
-      commanderDamage: 0,
+      commanderDamage: [0,0,0,0,0,0],
       poisonDamage: 0,
       commanderDamageColor: Colors.white,
       poisonDamageColor: Colors.white,
@@ -30,10 +30,10 @@ class _TwoPlayersState extends State<TwoPlayers> {
   );
   Player player2 = Player(
       health: 40,
-      username: '',
+      username: 'player2',
       backgroundColor: Colors.green.shade700,
       healthColor: Colors.white,
-      commanderDamage: 0,
+      commanderDamage: [0,0,0,0,0,0],
       poisonDamage: 0,
       commanderDamageColor: Colors.white,
       poisonDamageColor: Colors.white,
@@ -54,13 +54,15 @@ class _TwoPlayersState extends State<TwoPlayers> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       if ( prefs.getInt('player1_health') != null ) player1.health = prefs.getInt('player1_health')!;
-      if ( prefs.getInt('player1_comm_damage') != null ) player1.commanderDamage = prefs.getInt('player1_comm_damage')!;
+      if ( prefs.getInt('player1_comm_damage') != null ) player1.commanderDamage[1] = prefs.getInt('player1_comm_damage')!;
       if ( prefs.getInt('player1_poison_damage') != null ) player1.poisonDamage = prefs.getInt('player1_poison_damage')!;
       if ( prefs.getInt('player2_health') != null ) player2.health = prefs.getInt('player2_health')!;
-      if ( prefs.getInt('player2_comm_damage') != null ) player2.commanderDamage = prefs.getInt('player2_comm_damage')!;
+      if ( prefs.getInt('player2_comm_damage') != null ) player2.commanderDamage[0] = prefs.getInt('player2_comm_damage')!;
       if ( prefs.getInt('player2_poison_damage') != null ) player2.poisonDamage = prefs.getInt('player2_poison_damage')!;
       if ( prefs.getString('player2_background_color') != null ) setPlayerBackground( player2, prefs.getString('player2_background_color')!);
       if ( prefs.getString('player1_background_color') != null ) setPlayerBackground( player1, prefs.getString('player1_background_color')!);
+      if ( prefs.getString('player1_username') != null ) player1.username = prefs.getString('player1_username')!;
+      if ( prefs.getString('player2_username') != null ) player2.username = prefs.getString('player2_username')!;
     });
 
   }
@@ -83,13 +85,15 @@ class _TwoPlayersState extends State<TwoPlayers> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setInt('player1_health', player1.health);
-    await prefs.setInt('player1_comm_damage', player1.commanderDamage);
+    await prefs.setInt('player1_comm_damage', player1.commanderDamage[1]);
     await prefs.setInt('player1_poison_damage', player1.poisonDamage);
     await prefs.setInt('player2_health', player2.health);
-    await prefs.setInt('player2_comm_damage', player2.commanderDamage);
+    await prefs.setInt('player2_comm_damage', player2.commanderDamage[0]);
     await prefs.setInt('player2_poison_damage', player2.poisonDamage);
     await prefs.setString('player2_background_color', player2.backgroundColor.toString());
     await prefs.setString('player1_background_color', player1.backgroundColor.toString());
+    await prefs.setString('player1_username', player1.username.toString());
+    await prefs.setString('player2_username', player2.username.toString());
   }
 
   @override
@@ -106,7 +110,9 @@ class _TwoPlayersState extends State<TwoPlayers> {
                     notifyParent: refreshPlayer1,
                   ) : StatsLayout(
                       player: player1,
-                      notifyParent: refreshStatsPlayer1
+                      notifyParent: refreshStatsPlayer1,
+                      onBackPressed: onStatsBackPressed,
+                      playerIndex: 0,
                   ),
                   quarterTurns: 2,
                 ),
@@ -118,7 +124,10 @@ class _TwoPlayersState extends State<TwoPlayers> {
                   notifyParent: refreshPlayer2,
                 ) : StatsLayout(
                     player: player2,
-                    notifyParent: refreshStatsPlayer2 ),
+                    notifyParent: refreshStatsPlayer2,
+                    onBackPressed: onStatsBackPressed,
+                    playerIndex: 1,
+                ),
                 flex: 1,
               ),
             ],
@@ -152,24 +161,26 @@ class _TwoPlayersState extends State<TwoPlayers> {
     });
   }
 
-  void refreshStatsPlayer1( {required int commanderDamage, required int poisonDamage, required String show }){
+  void refreshStatsPlayer1( Player player ){
 
     setState(() {
-      player1.commanderDamage = commanderDamage;
-      player1.poisonDamage = poisonDamage;
-      player1.show = show;
+      player1 = player;
     });
 
   }
 
-  void refreshStatsPlayer2( {required int commanderDamage, required int poisonDamage, required String show }){
+  void refreshStatsPlayer2( Player player ){
 
     setState(() {
-      player2.commanderDamage = commanderDamage;
-      player2.poisonDamage = poisonDamage;
-      player2.show = show;
+     player2 = player;
     });
 
+  }
+
+  void onStatsBackPressed(Player player){
+    setState(() {
+      player.show = 'player';
+    });
   }
 
 }

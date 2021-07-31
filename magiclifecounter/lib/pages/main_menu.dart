@@ -13,7 +13,7 @@ class _MainMenuState extends State<MainMenu> {
   @override
   void initState() {
     super.initState();
-    Future () => SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
   @override
@@ -24,6 +24,8 @@ class _MainMenuState extends State<MainMenu> {
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
+              Center(child: Image(image: AssetImage('./lib/assets/icons/appiconmtg.png'), width: 300, height: 300,)),
+              SizedBox(height: 60,),
               Row(
                 children: [
                   Expanded(child: TextButton(

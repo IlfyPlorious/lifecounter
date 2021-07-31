@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "161125054230",
+    "project_id": "fluttermtg",
+    "storage_bucket": "fluttermtg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161125054230:android:6be02294dffd15fd9f8237",
+        "android_client_info": {
+          "package_name": "com.ilfyplorious.magiclifecounter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161125054230-ft4k9teuk4vln8qrtlsabm50je2hc2g4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKdhKqpfW0JVce4325y49mDd-cWdVdA3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161125054230-ft4k9teuk4vln8qrtlsabm50je2hc2g4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

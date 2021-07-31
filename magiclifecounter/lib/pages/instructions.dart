@@ -23,9 +23,25 @@ class Instructions extends StatelessWidget {
             ),
             Card(
               child: Padding(padding: const EdgeInsets.all(12), child: Text(
-                'Your life, commander damage, and poison damage is saved locally',
+                'Your life, commander damage ( for 2 players only ), and poison damage is saved locally',
                 style: TextStyle(
                     fontSize: 20
+                ),
+              ),),
+            ),
+            Card(
+              child: Padding(padding: const EdgeInsets.all(12), child: Text(
+                'You can edit your player name in the stats menu',
+                style: TextStyle(
+                    fontSize: 20
+                ),
+              ),),
+            ),
+            Card(
+              child: Padding(padding: const EdgeInsets.all(12), child: Text(
+                'Tap player name to reset commander damage in 4 players mode',
+                style: TextStyle(
+                  fontSize: 20
                 ),
               ),),
             )

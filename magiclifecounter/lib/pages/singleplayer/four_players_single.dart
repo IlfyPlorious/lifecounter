@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:magiclifecounter/classes/player.dart';
 import 'package:magiclifecounter/layouts/player_layout.dart';
+import 'package:magiclifecounter/layouts/stats_for_four_layout.dart';
 import 'package:magiclifecounter/layouts/stats_layout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,10 +16,9 @@ class _FourPlayersState extends State<FourPlayers> {
 
   Player player1 = new Player(
       health: 40,
-      username: '',
+      username: 'player1',
       backgroundColor: Colors.green.shade700,
       healthColor: Colors.white,
-      commanderDamage: 0,
       poisonDamage: 0,
       commanderDamageColor: Colors.white,
       poisonDamageColor: Colors.white,
@@ -26,14 +26,15 @@ class _FourPlayersState extends State<FourPlayers> {
       tooltipVisibility: 'invisible',
       timerIsRunning: false,
       tooltip: 0,
+      commanderDamage: [0,0,0,0,0,0],
   );
 
   Player player2 = new Player(
     health: 40,
-    username: '',
+    username: 'player2',
     backgroundColor: Colors.green.shade700,
     healthColor: Colors.white,
-    commanderDamage: 0,
+    commanderDamage: [0,0,0,0,0,0],
     poisonDamage: 0,
     commanderDamageColor: Colors.white,
     poisonDamageColor: Colors.white,
@@ -45,10 +46,10 @@ class _FourPlayersState extends State<FourPlayers> {
 
   Player player3 = new Player(
     health: 40,
-    username: '',
+    username: 'player3',
     backgroundColor: Colors.green.shade700,
     healthColor: Colors.white,
-    commanderDamage: 0,
+    commanderDamage: [0,0,0,0,0,0],
     poisonDamage: 0,
     commanderDamageColor: Colors.white,
     poisonDamageColor: Colors.white,
@@ -60,10 +61,10 @@ class _FourPlayersState extends State<FourPlayers> {
 
   Player player4 = new Player(
     health: 40,
-    username: '',
+    username: 'player4',
     backgroundColor: Colors.green.shade700,
     healthColor: Colors.white,
-    commanderDamage: 0,
+    commanderDamage: [0,0,0,0,0,0],
     poisonDamage: 0,
     commanderDamageColor: Colors.white,
     poisonDamageColor: Colors.white,
@@ -83,19 +84,15 @@ class _FourPlayersState extends State<FourPlayers> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       if ( prefs.getInt('player1_health') != null ) player1.health = prefs.getInt('player1_health')!;
-      if ( prefs.getInt('player1_comm_damage') != null ) player1.commanderDamage = prefs.getInt('player1_comm_damage')!;
       if ( prefs.getInt('player1_poison_damage') != null ) player1.poisonDamage = prefs.getInt('player1_poison_damage')!;
       if ( prefs.getString('player1_background_color') != null ) setPlayerBackground( player1, prefs.getString('player1_background_color')!);
       if ( prefs.getInt('player2_health') != null ) player2.health = prefs.getInt('player2_health')!;
-      if ( prefs.getInt('player2_comm_damage') != null ) player2.commanderDamage = prefs.getInt('player2_comm_damage')!;
       if ( prefs.getInt('player2_poison_damage') != null ) player2.poisonDamage = prefs.getInt('player2_poison_damage')!;
       if ( prefs.getString('player2_background_color') != null ) setPlayerBackground( player2, prefs.getString('player2_background_color')!);
       if ( prefs.getInt('player3_health') != null ) player3.health = prefs.getInt('player3_health')!;
-      if ( prefs.getInt('player3_comm_damage') != null ) player3.commanderDamage = prefs.getInt('player3_comm_damage')!;
       if ( prefs.getInt('player3_poison_damage') != null ) player3.poisonDamage = prefs.getInt('player3_poison_damage')!;
       if ( prefs.getString('player3_background_color') != null ) setPlayerBackground( player3, prefs.getString('player3_background_color')!);
       if ( prefs.getInt('player4_health') != null ) player4.health = prefs.getInt('player4_health')!;
-      if ( prefs.getInt('player4_comm_damage') != null ) player4.commanderDamage = prefs.getInt('player4_comm_damage')!;
       if ( prefs.getInt('player4_poison_damage') != null ) player4.poisonDamage = prefs.getInt('player4_poison_damage')!;
       if ( prefs.getString('player4_background_color') != null ) setPlayerBackground( player4, prefs.getString('player4_background_color')!);
 
@@ -121,19 +118,15 @@ class _FourPlayersState extends State<FourPlayers> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setInt('player1_health', player1.health);
-    await prefs.setInt('player1_comm_damage', player1.commanderDamage);
     await prefs.setInt('player1_poison_damage', player1.poisonDamage);
     await prefs.setString('player1_background_color', player1.backgroundColor.toString());
     await prefs.setInt('player2_health', player2.health);
-    await prefs.setInt('player2_comm_damage', player2.commanderDamage);
     await prefs.setInt('player2_poison_damage', player2.poisonDamage);
     await prefs.setString('player2_background_color', player2.backgroundColor.toString());
     await prefs.setInt('player3_health', player3.health);
-    await prefs.setInt('player3_comm_damage', player3.commanderDamage);
     await prefs.setInt('player3_poison_damage', player3.poisonDamage);
     await prefs.setString('player3_background_color', player3.backgroundColor.toString());
     await prefs.setInt('player4_health', player4.health);
-    await prefs.setInt('player4_comm_damage', player4.commanderDamage);
     await prefs.setInt('player4_poison_damage', player4.poisonDamage);
     await prefs.setString('player4_background_color', player4.backgroundColor.toString());
 
@@ -142,6 +135,7 @@ class _FourPlayersState extends State<FourPlayers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: GestureDetector(
         child: SafeArea(
           child: Row(
@@ -155,9 +149,15 @@ class _FourPlayersState extends State<FourPlayers> {
                         child: (player1.show == 'player') ? PlayerLayout(
                           player: player1,
                           notifyParent: refreshPlayer1,
-                        ) : StatsLayout(
+                        ) : StatsForFour(
                             player: player1,
-                            notifyParent: refreshStatsPlayer1
+                            onBackPressed: onStatsBackPressed,
+                            thePlayers: [
+                              player1,
+                              player2,
+                              player3,
+                              player4
+                            ],
                         ),
                         quarterTurns: 1,
                       ),
@@ -168,9 +168,16 @@ class _FourPlayersState extends State<FourPlayers> {
                         child: (player2.show == 'player') ? PlayerLayout(
                           player: player2,
                           notifyParent: refreshPlayer2,
-                        ) : StatsLayout(
+                        ) : StatsForFour(
                             player: player2,
-                            notifyParent: refreshStatsPlayer2 ),
+                            onBackPressed: onStatsBackPressed,
+                            thePlayers: [
+                              player1,
+                              player2,
+                              player3,
+                              player4
+                            ],
+                        ),
                         quarterTurns: 1,
                       ),
                       flex: 1,
@@ -187,9 +194,15 @@ class _FourPlayersState extends State<FourPlayers> {
                         child: (player3.show == 'player') ? PlayerLayout(
                           player: player3,
                           notifyParent: refreshPlayer3,
-                        ) : StatsLayout(
+                        ) : StatsForFour(
                             player: player3,
-                            notifyParent: refreshStatsPlayer3
+                            onBackPressed: onStatsBackPressed,
+                            thePlayers: [
+                              player1,
+                              player2,
+                              player3,
+                              player4
+                            ],
                         ),
                         quarterTurns: 3,
                       ),
@@ -200,9 +213,16 @@ class _FourPlayersState extends State<FourPlayers> {
                         child: (player4.show == 'player') ? PlayerLayout(
                           player: player4,
                           notifyParent: refreshPlayer4,
-                        ) : StatsLayout(
+                        ) : StatsForFour(
                             player: player4,
-                            notifyParent: refreshStatsPlayer4 ),
+                            onBackPressed: onStatsBackPressed,
+                            thePlayers: [
+                              player1,
+                              player2,
+                              player3,
+                              player4
+                            ],
+                        ),
                         quarterTurns: 3,
                       ),
                       flex: 1,
@@ -257,44 +277,46 @@ class _FourPlayersState extends State<FourPlayers> {
     });
   }
 
-  void refreshStatsPlayer1( {required int commanderDamage, required int poisonDamage, required String show }){
+  void refreshStatsPlayer1( { required int poisonDamage, required String show }){
 
     setState(() {
-      player1.commanderDamage = commanderDamage;
       player1.poisonDamage = poisonDamage;
       player1.show = show;
     });
 
   }
 
-  void refreshStatsPlayer2( {required int commanderDamage, required int poisonDamage, required String show }){
+  void refreshStatsPlayer2( {required int poisonDamage, required String show }){
 
     setState(() {
-      player2.commanderDamage = commanderDamage;
       player2.poisonDamage = poisonDamage;
       player2.show = show;
     });
 
   }
 
-  void refreshStatsPlayer3( {required int commanderDamage, required int poisonDamage, required String show }){
+  void refreshStatsPlayer3( { required int poisonDamage, required String show }){
 
     setState(() {
-      player3.commanderDamage = commanderDamage;
       player3.poisonDamage = poisonDamage;
       player3.show = show;
     });
 
   }
 
-  void refreshStatsPlayer4( {required int commanderDamage, required int poisonDamage, required String show }){
+  void refreshStatsPlayer4( { required int poisonDamage, required String show }){
 
     setState(() {
-      player4.commanderDamage = commanderDamage;
       player4.poisonDamage = poisonDamage;
       player4.show = show;
     });
 
+  }
+
+  void onStatsBackPressed(Player player){
+    setState(() {
+      player.show = 'player';
+    });
   }
 
 }

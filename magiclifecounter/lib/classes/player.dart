@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 class Player{
 
   int health;
-  int commanderDamage;
+  var commanderDamage = List<int>.filled(6, 0);
   int poisonDamage;
   String username, show;
   Color backgroundColor;
@@ -36,20 +36,28 @@ class Player{
     this.health -= 1;
   }
 
-  void plusCommanderDamage(){
-    this.commanderDamage += 1;
+  void plusCommanderDamage({required int whereIndex}){
+    if ( commanderDamage[whereIndex] + 1 < 22 )
+      this.commanderDamage[whereIndex] += 1;
   }
 
-  void minusCommanderDamage(){
-    this.commanderDamage -= 1;
+  void minusCommanderDamage({required int whereIndex}){
+    if ( commanderDamage[whereIndex] - 1 > -1 )
+      this.commanderDamage[whereIndex] -= 1;
+  }
+
+  void resetCommanderDamage({required int whereIndex}){
+    this.commanderDamage[whereIndex] = 0;
   }
 
   void plusPoisonDamage(){
-    this.poisonDamage += 1;
+    if ( poisonDamage + 1 < 11)
+      this.poisonDamage += 1;
   }
 
   void minusPoisonDamage(){
-    this.poisonDamage -= 1;
+    if ( poisonDamage - 1 > -1 )
+      this.poisonDamage -= 1;
   }
 
   void changeUsername(String username){

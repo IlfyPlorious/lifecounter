@@ -23,7 +23,6 @@ class _PlayerBarState extends State<PlayerBar> {
             children: [
               IconButton(
                 onPressed: (){
-
                   setState(() {
                     widget.player.health = 40;
                     widget.player.healthColor = Colors.white;
